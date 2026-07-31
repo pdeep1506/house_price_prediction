@@ -32,7 +32,7 @@ Y = y.astype(float)
 # Step 2 :- Initialize and run cross-validation
 line_reg = LinearRegression()
 
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.35, random_state= 42)
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state= 42)
 line_reg.fit(X_train, Y_train)
 
 prediction = line_reg.predict(X_test)
@@ -51,35 +51,3 @@ rmse = np.sqrt(metrics.mean_squared_error(Y_test, prediction))
 print(f"R-Squared Score: {r2:.4f}")
 print(f"Mean Absolute Error (MAE): {mae:.4f}")
 print(f"Root Mean Squared Error (RMSE): {rmse:.4f}")
-
-
-
-plt.figure(figsize=(7,6))
-plt.scatter(Y_test, prediction, alpha=0.7)
-
-plt.plot([Y_test.min(), Y_test.max()],
-         [Y_test.min(), Y_test.max()],
-         color='red', linewidth=2)
-
-plt.xlabel("Actual Price")
-plt.ylabel("Predicted Price")
-plt.title("Actual vs Predicted House Prices")
-plt.grid(True)
-plt.show()
-residuals = Y_test - prediction
-
-plt.figure(figsize=(7,5))
-sns.histplot(residuals, bins=25, kde=True)
-
-plt.title("Distribution of Residuals")
-plt.xlabel("Residual")
-plt.show()
-
-plt.figure(figsize=(7,6))
-plt.scatter(df["RM"], df["price"], alpha=0.6)
-
-plt.xlabel("Average Number of Rooms")
-plt.ylabel("House Price")
-plt.title("Rooms vs House Price")
-plt.show()
-
